@@ -1,0 +1,73 @@
+<head>
+  <title>Chat</title>
+</head>
+
+<body>
+  {{> chat}}
+</body>
+
+<template name="chat">
+  <h1>Chat room: {{roomName}}</h1>
+
+ 
+	<div class="chat-area">
+    <div class="settings" title="Click tot toggle visibility"></div>
+    <fieldset id="settings-fieldset">
+      <legend>Settings</legend>
+        <div class="label">Name: </div>
+        <div class="input"><input type="text" id="name" placeholder="Your name" /></div>
+        <div class="label">Avatar: </div>
+        <div class="input"><input type="text" id="avatar" placeholder="Your image" value="https://twimg0-a.akamaihd.net/profile_images/96966965/henrycordes.jpg" /></div>
+        <div class="label">Room: </div>
+
+        <div class="input">
+          <div class="rooms-container">
+            {{> rooms}}
+            <input type="text" id="chatroom-name" placeholder="Chatroom name" /> 
+            <img src="img/add-icon-32.png" id="add-room" class="image-button" />
+          </div> 
+        </div>
+
+        <div class="button-row">
+            <input type="button" value="Start chat" id="start" />
+        </div>
+    </fieldset>
+
+    <div class="chatroom">
+      <div class="message-container">
+        <ul class="messages">
+    		  {{#each messages}}
+          		{{> message}}
+        	{{/each}}
+        </ul>
+      </div>
+       <div class="sendContainer">
+        <textarea id="message" placeholder="Enter message" class="messageInput"></textarea>
+        <input type="button" value="Send" id="send" />
+      </div>
+    </div>
+	</div>
+</template>
+
+
+<template name="message">
+  <li class="message">
+    <div class="avatar" title="{{userName}}">{{#if useravatar}}<img src="{{useravatar}}" width="20" height="20" />{{/if}}</div>
+  	<div class="message bubble {{scope}}">
+      <div class="time">{{datetime}}</div>
+  		<div class="content">{{content}}</div>
+  	</div>
+  </li>
+</template>
+
+<template name="rooms">
+   <select id="roomname" name="roomname">
+        {{#each chatrooms}}
+          {{> chatroom}}
+        {{/each}}
+    </select>
+</template>
+
+<template name="chatroom">
+  <option value="{{name}}">{{name}}</option>
+</template>
